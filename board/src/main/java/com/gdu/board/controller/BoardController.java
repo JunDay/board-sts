@@ -68,6 +68,7 @@ public class BoardController {
 			
 			model.addAttribute("boardList", map.get("boardList"));
 			model.addAttribute("categoryList", categoryList);
+			model.addAttribute("boardCategory", boardCategory);
 			model.addAttribute("lastPage", map.get("lastPage"));
 			model.addAttribute("currentPage", currentPage);
 			

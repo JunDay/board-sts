@@ -17,6 +17,9 @@
 		</c:if>
 		<c:if test="${loginMember != null}">
 			<a href="/logout">로그아웃</a>
+			<c:if test="${loginMember.memberLevel > 0}">
+				<a href="/adminIndex">관리자 페이지</a>
+			</c:if>
 		</c:if>
 	</div>
 	<div>
@@ -25,7 +28,7 @@
 	<div>
 		카테고리 : 
 		<select id="boardCategory" name="boardCategory" onchange="categorySelect()">
-			<option value="">카테고리 선택</option>
+			<option value="">전체</option>
 			<c:forEach items="${categoryList}" var="c">
 				<option value="${c.categoryName}">${c.categoryName}</option>
 			</c:forEach>
@@ -53,11 +56,21 @@
 		</c:forEach>
 	</table>
 	<div>
-		<c:if test="${currentPage > 1}" >
-			<a href="boardList?currentPage=${currentPage-1}">이전</a>
+		<c:if test="${boardCategory != null}">
+			<c:if test="${currentPage > 1}" >
+				<a href="boardList?currentPage=${currentPage-1}&boardCategory=${boardCategory}">이전</a>
+			</c:if>
+			<c:if test="${currentPage < lastPage}" >
+				<a href="boardList?currentPage=${currentPage+1}&boardCategory=${boardCategory}">다음</a>
+			</c:if>
 		</c:if>
-		<c:if test="${currentPage < lastPage}" >
-			<a href="boardList?currentPage=${currentPage+1}">다음</a>
+		<c:if test="${boardCategory == null}">
+			<c:if test="${currentPage > 1}" >
+				<a href="boardList?currentPage=${currentPage-1}">이전</a>
+			</c:if>
+			<c:if test="${currentPage < lastPage}" >
+				<a href="boardList?currentPage=${currentPage+1}">다음</a>
+			</c:if>
 		</c:if>
 	</div>
 </body>
