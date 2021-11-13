@@ -1,5 +1,6 @@
 package com.gdu.board.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.board.service.BoardService;
+import com.gdu.board.service.CategoryService;
 import com.gdu.board.vo.*;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardController {
 	@Autowired
 	BoardService boardService;
+	@Autowired
+	CategoryService categoryService;
 	
 	private final int ROW_PER_PAGE = 10;
 	
@@ -32,8 +36,10 @@ public class BoardController {
 	
 	/* INSERT Board */
 	@GetMapping("/addBoard")
-	public String addBoard() {
-		return "addBoard";
+	public String addBoard(Model model) {
+		List<Category> categoryList = categoryService.selectCategoryList();
+		model.addAttribute(categoryList);
+		return "member/addBoard";
 	}
 	@PostMapping("/addBoard")
 	public String addBoard(Board board) {
@@ -58,8 +64,10 @@ public class BoardController {
 			@RequestParam(required = false) String boardCategory) {
 		
 			Map<String, Object> map = boardService.getBoardListByCategory(boardCategory, currentPage, ROW_PER_PAGE);
+			List<Category> categoryList = categoryService.selectCategoryList();
 			
 			model.addAttribute("boardList", map.get("boardList"));
+			model.addAttribute("categoryList", categoryList);
 			model.addAttribute("lastPage", map.get("lastPage"));
 			model.addAttribute("currentPage", currentPage);
 			

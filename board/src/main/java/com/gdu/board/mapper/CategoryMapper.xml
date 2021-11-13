@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.board.mapper.CategoryMapper">
+	
 	<select id="selectCategoryList" parameterType="com.gdu.board.vo.Category" resultType="com.gdu.board.vo.Category">
 		SELECT 
-			category_name, 
-			category_date, 
-			update_date
+			category_name categoryName, 
+			category_date categoryDate, 
+			update_date updateDate
 		FROM category
 		ORDER BY category_name DESC
 	</select>

@@ -15,5 +15,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class MemberController {
+	@Autowired
+	MemberService memberService;
 	
+	@GetMapping("/joinMember")
+	public String joinMember() {
+		return "joinMember";
+	}
+	@PostMapping("joinMember")
+	public String joinMember(Member member) {
+		int result = memberService.getInsertMember(member);
+		if(result == 0 ) {
+			log.debug("회원가입 실패");
+		}
+		log.debug("회원가입 성공");
+		
+		return "redirect:/boardList";
+	}
 }

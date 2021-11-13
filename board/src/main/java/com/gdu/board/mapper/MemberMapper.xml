@@ -2,11 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.board.mapper.MemberMapper">
 
+	<!-- 회원가입 정보 삽입-->
+	<insert id="insertMember" parameterType="com.gdu.board.vo.Member">
+		INSERT INTO member(
+			member_id, 
+			member_pw, 
+			member_email, 
+			member_date, 
+			update_date
+		) VALUES (
+			#{memberId}, 
+			#{memberPw}, 
+			#{memberEmail}, 
+			NOW(), 
+			NOW()
+		)
+	</insert>
+
+	<!-- 회원가입 ID 유효성 확인 -->
+	<select id="selectMemberIdCheck" parameterType="String" resultType="int">
+		SELECT 
+			member_id
+		FROM 
+			member
+		WHERE 
+			member_id = #{memberId}
+		UNION ALL
+		SELECT 
+			member_id
+		FROM 
+			membered
+		WHERE 
+			member_id = #{memberId}
+	</select>
 
 	<!-- 로그인 : Member 조회 -->
 	<resultMap type="com.gdu.board.vo.Member" id="resultMember">
 		<id column="member_no" property="memberNo"/>
 		<result column="member_id" property="memberId"/>
+		<result column="member_level" property="memberLevel"/>
+		<result column="member_state" property="memberState"/>
+		<result column="member_email" property="memberEmail"/>
 		<result column="member_date" property="memberDate"/>
 		<result column="update_date" property="updateDate"/>
 	</resultMap>
@@ -14,6 +50,9 @@
 		SELECT 
 			member_no, 
 			member_id, 
+			member_level, 
+			member_state, 
+			member_email, 
 			member_date, 
 			update_date
 		FROM 

@@ -9,7 +9,7 @@
 		WHERE board_no = #{boardNo}
 	</delete>
 
-	<!-- Board -->
+	<!-- Board 삽입 -->
 	<insert id="insertBoard" parameterType="com.gdu.board.vo.Board">
 		INSERT INTO board(
 			board_category, 
@@ -26,6 +26,9 @@
 			NOW(), 
 			NOW()
 		)
+		<selectKey keyProperty="boardNo" order="AFTER" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 
 	<!-- Board의 객체를 온전히 담기위한 Map -->
@@ -39,6 +42,7 @@
 		<result column="update_date" property="updateDate"/>
 		<collection property="comments" ofType="com.gdu.board.vo.Comment">
 			<id column="comment_no" property="commentNo"/>
+			<result column="comment_writer" property="commentWriter"/>
 			<result column="comment_content" property="commentContent"/>
 		</collection>
 	</resultMap>
@@ -52,8 +56,9 @@
 			b.board_content, 
 			b.member_id, 
 			b.board_date, 
-			b.udate_date, 
+			b.update_date, 
 			c.comment_no, 
+			c.comment_writer, 
 			c.comment_content
 		FROM board b LEFT JOIN comment c
 		ON b.board_no = c.board_no

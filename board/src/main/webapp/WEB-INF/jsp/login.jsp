@@ -7,7 +7,7 @@
 <title>Pro Board 로그인</title>
 </head>
 <body>
-	<div><a href="/boardList">뒤로가기</a></div>
+	<div><a href="/boardList">메인</a></div>
 	<form method="post" action="/login">
 		<div>ID : <input id="memberId" name="memberId" type="text"></div>
 		<div>PW : <input id="memberPw" name="memberPw" type="password"></div>

@@ -37,7 +37,7 @@ public class LoginController {
 		return "redirect:/boardList";
 	}
 	
-	@GetMapping("/logut")
+	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/boardList";	//IndexController, index.jsp 등이 필요

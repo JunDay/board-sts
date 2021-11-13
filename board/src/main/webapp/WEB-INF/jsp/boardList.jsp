@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>boardList</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 	<h1>게시글 목록</h1>
@@ -19,13 +20,25 @@
 		</c:if>
 	</div>
 	<div>
-		<a href="addBoard">게시글 추가</a>
+		<a href="/addBoard">게시글 추가</a>
+	</div>
+	<div>
+		카테고리 : 
+		<select id="boardCategory" name="boardCategory" onchange="categorySelect()">
+			<option value="">카테고리 선택</option>
+			<c:forEach items="${categoryList}" var="c">
+				<option value="${c.categoryName}">${c.categoryName}</option>
+			</c:forEach>
+		</select>
+		<a id="serchCategory" href="/boardList">검색</a>
 	</div>
 	<table border="1">
 		<tr>
-			<td>boardNo</td>
-			<td>boardCategory</td>
-			<td>boardTitle</td>
+			<td>글 번호</td>
+			<td>카테고리</td>
+			<td>제목</td>
+			<td>작성자</td>
+			<td>작성일</td>
 		</tr>
 		<c:forEach items="${boardList}" var="board">
 			<tr>
@@ -34,6 +47,8 @@
 				<td>
 					<a href="/boardOne?boardNo=${board.boardNo}">${board.boardTitle}</a>
 				</td>
+				<td>${board.memberId}</td>
+				<td>${board.boardDate}</td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -46,4 +61,12 @@
 		</c:if>
 	</div>
 </body>
+<script>
+function categorySelect(){  
+	var boardCategory = document.getElementById("boardCategory");
+	// select element에서 선택된 option의 value가 저장된다.
+	var categoryValue = boardCategory.options[boardCategory.selectedIndex].value;
+	$('#serchCategory').attr('href', '/boardList?boardCategory='+categoryValue);
+}
+</script>
 </html>
