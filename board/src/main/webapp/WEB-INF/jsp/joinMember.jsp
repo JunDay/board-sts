@@ -15,15 +15,7 @@
 		<div>비밀번호 확인 : <input id="memberCheckPw" name="memberCheckPw" type="password"></div>
 		<div>
 			이메일 : 
-			<input id="email" name="email" type="text">
-			@
-			<input id="emailDomain" name="emailDomain" type="text">
-			<select id="emailChooseDomain" name="emailChooseDomain">
-				<option value="default">사용자 입력</option>
-				<option value="naver.com">naver.com</option>
-				<option value="gmail.com">gmail.com</option>
-				<option value="daum.net">daum.net</option>
-			</select>
+			<input id="memberEmail" name="memberEmail" type="text">
 		</div>
 		<button id="addMemberBtn" type="submit">회원가입</button>
 	</form>

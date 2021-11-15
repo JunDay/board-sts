@@ -18,6 +18,15 @@ public class CategoryService {
 	@Autowired
 	CategoryMapper categoryMapper;
 	
+	public void deleteCategory(String categoryName) {
+		log.debug("[Debug] \"START\" CategoryService.deleteCategory()");
+		categoryMapper.deleteCategory(categoryName);
+	}
+	public void insertCategory(Category cateogry) {
+		log.debug("[Debug] \"START\" CategoryService.insertCategory()");
+		categoryMapper.insertCategory(cateogry);
+	}
+	
 	public List<Category> selectCategoryList() {
 		log.debug("[Debug] \"START\" CategoryService.selectCategoryList()");
 		

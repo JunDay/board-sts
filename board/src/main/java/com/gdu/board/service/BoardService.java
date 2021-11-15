@@ -20,6 +20,13 @@ public class BoardService {
 	@Autowired
 	BoardMapper boardMapper;
 	
+	public int selectTotalBoardCountByCategory(String categoryName) {
+		log.debug("[Debug] \"START\" BoardService.selectTotalBoardCountByCategory()");
+		log.debug(" ├[param] categoryName : "+categoryName);
+		
+		return boardMapper.selectBoardTotalCount(categoryName);
+	}
+	
 	/* 보드 삭제 */
 	public void deleteBoard(int boardNo) {
 		log.debug("[Debug] \"START\" BoardService.deleteBoard()");

@@ -2,6 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.board.mapper.MemberMapper">
 
+	<!-- 카테고리에 따른 Board의 총 갯수 -->
+	<select id="selectMemberTotalCount"  parameterType="String" resultType="int">
+		SELECT COUNT(*) 
+		FROM member
+		<where>
+			<if test="memberId != null">
+				member_id = #{memberId}
+			</if>
+		</where>
+	</select>
+
+	<!-- 로그인 : Member 조회 -->
+	<select id="selectMemberList" parameterType="com.gdu.board.vo.Member" resultMap="resultMember">
+		SELECT 
+			member_no, 
+			member_id, 
+			member_level, 
+			member_state, 
+			member_email, 
+			member_date, 
+			update_date
+		FROM 
+			member
+		<where>
+			<if test="memberId != null">
+				LIKE member_id = CONCAT('%', #{memberId}, '%');
+			</if>
+		</where>
+		ORDER BY member_no DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+
+	<!-- 회원 pw 확인-->
+	<select id="selectMemberPwCheck" parameterType="com.gdu.board.vo.Member" resultType="int">
+		SELECT 
+			COUNT(member_id) count
+		FROM 
+			member
+		WHERE 
+			member_id = #{memberId} AND member_pw = #{memberPw}
+	</select>
+	
 	<!-- 회원가입 정보 삽입-->
 	<insert id="insertMember" parameterType="com.gdu.board.vo.Member">
 		INSERT INTO member(
