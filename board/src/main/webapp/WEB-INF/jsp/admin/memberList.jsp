@@ -15,23 +15,13 @@
 			<td>회원ID</td>
 			<td>회원레벨</td>
 			<td>회원상태</td>
-			<td>회원이메일</td>
-			<td>회원가입일</td>
-			<td>수정일</td>
-			<td>정보변경</td>
-			<td>강제탈퇴</td>
 		</tr>
 		<c:forEach items="${memberList}" var="member">
 			<tr>
-				<td>${member.memberNo}</td>
+				<td><a href="memberOne?memberNo=${member.memberNo}">${member.memberNo}</a></td>
 				<td>${member.memberId}</td>
 				<td>${member.memberLevel}</td>
 				<td>${member.memberState}</td>
-				<td>${member.memberEmail}</td>
-				<td>${member.memberDate}</td>
-				<td>${member.updateDate}</td>
-				<td><a href="admin/updateMember?memberNo=${member.memberNo}">변경</a></td>
-				<td><a href="admin/deleteMember?memberNo=${member.memberNo}">삭제</a></td>
 			</tr>
 		</c:forEach>
 	</table>

@@ -17,6 +17,7 @@
 		</c:if>
 		<c:if test="${loginMember != null}">
 			<a href="/logout">로그아웃</a>
+			<a href="/member/memberOne?memberNo=${loginMember.memberNo}">회원정보</a>
 			<c:if test="${loginMember.memberLevel > 0}">
 				<a href="/admin/adminIndex">관리자 페이지</a>
 			</c:if>

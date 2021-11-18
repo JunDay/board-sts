@@ -9,8 +9,9 @@
 </head>
 <body>
 	<h1>회원 상세정보</h1>
-	<a href="updateMember?memberNo=${member.memberNo}">변경</a>
-	<a href="deleteMember?memberNo=${member.memberNo}">삭제</a>
+	<a href="updateMemberPassword?memberNo=${member.memberNo}">비밀번호 변경</a>
+	<a href="updateMember?memberNo=${member.memberNo}">정보변경</a>
+	<a href="deleteMember?memberNo=${member.memberNo}">탈퇴</a>
 	<table border="1">
 		<tr>
 			<td>회원번호</td>
@@ -19,14 +20,6 @@
 		<tr>
 			<td>${member.memberNo}</td>
 			<td>${member.memberId}</td>
-		</tr>
-		<tr>
-			<td>회원레벨</td>
-			<td>회원상태</td>
-		</tr>
-		<tr>
-			<td>${member.memberLevel}</td>
-			<td>${member.memberState}</td>
 		</tr>
 		<tr>
 			<td colspan="2">회원이메일</td>

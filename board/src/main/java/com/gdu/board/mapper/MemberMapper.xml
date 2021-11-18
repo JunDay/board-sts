@@ -1,19 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.board.mapper.MemberMapper">
+	
+	<!-- Member PW 변경 | param : memberPw, memberNo -->
+	<update id="updateMemberPassword">
+		UPDATE member
+		SET
+			member_pw = #{memberPw}, 
+			update_date = NOW()
+		WHERE member_no = #{memberNo}
+	</update>
 
-	<!-- 카테고리에 따른 Board의 총 갯수 -->
+	<!-- Member 삭제 | param : memberNo -->
+	<delete id="deleteMember">
+		DELETE member
+		FROM member
+		WHERE member_no = #{memberNo}
+	</delete>
+	
+	<!-- Member 변경 | param : memberLevel, memberState, memberEmail, memberNo -->
+	<update id="updateMember">
+		UPDATE member
+		SET
+			member_level = #{memberLevel}, 
+			member_state = #{memberState}, 
+			member_email = #{memberEmail}, 
+			update_date = NOW()
+		WHERE member_no = #{memberNo}
+	</update>
+	
+	<!-- 단일 Member 조회 | param : memberNo -->
+	<select id="selectMemberOne" parameterType="int" resultType="com.gdu.board.vo.Member">
+		SELECT 
+			member_no memberNo, 
+			member_id memberId, 
+			member_level memberLevel, 
+			member_state memberState, 
+			member_email memberEmail, 
+			member_date memberDate, 
+			update_date updateDate
+		FROM member
+		WHERE member_no = #{memberNo}
+	</select>
+	
+	<!-- 총 Member 수 조회 -->
 	<select id="selectMemberTotalCount"  parameterType="String" resultType="int">
 		SELECT COUNT(*) 
 		FROM member
-		<where>
-			<if test="memberId != null">
-				member_id = #{memberId}
-			</if>
-		</where>
 	</select>
 
-	<!-- 로그인 : Member 조회 -->
+	<!-- Member 목록 조회 | param : memberId, beginRow, rowPerPage -->
 	<select id="selectMemberList" parameterType="com.gdu.board.vo.Member" resultMap="resultMember">
 		SELECT 
 			member_no, 
@@ -34,7 +70,7 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 
-	<!-- 회원 pw 확인-->
+	<!-- MemberPw 확인 | param : memberId, memberPw -->
 	<select id="selectMemberPwCheck" parameterType="com.gdu.board.vo.Member" resultType="int">
 		SELECT 
 			COUNT(member_id) count
@@ -44,7 +80,7 @@
 			member_id = #{memberId} AND member_pw = #{memberPw}
 	</select>
 	
-	<!-- 회원가입 정보 삽입-->
+	<!-- Member 삽입 | param : memberId, memberPw, memberEmail -->
 	<insert id="insertMember" parameterType="com.gdu.board.vo.Member">
 		INSERT INTO member(
 			member_id, 
@@ -61,24 +97,7 @@
 		)
 	</insert>
 
-	<!-- 회원가입 ID 유효성 확인 -->
-	<select id="selectMemberIdCheck" parameterType="String" resultType="int">
-		SELECT 
-			member_id
-		FROM 
-			member
-		WHERE 
-			member_id = #{memberId}
-		UNION ALL
-		SELECT 
-			member_id
-		FROM 
-			membered
-		WHERE 
-			member_id = #{memberId}
-	</select>
-
-	<!-- 로그인 : Member 조회 -->
+	<!-- 로그인할 Member 조회 | param : memberId, memberPw -->
 	<resultMap type="com.gdu.board.vo.Member" id="resultMember">
 		<id column="member_no" property="memberNo"/>
 		<result column="member_id" property="memberId"/>
@@ -88,7 +107,7 @@
 		<result column="member_date" property="memberDate"/>
 		<result column="update_date" property="updateDate"/>
 	</resultMap>
-	<select id="selectMemberOne" parameterType="com.gdu.board.vo.Member" resultMap="resultMember">
+	<select id="selectMemberLogin" parameterType="com.gdu.board.vo.Member" resultMap="resultMember">
 		SELECT 
 			member_no, 
 			member_id, 

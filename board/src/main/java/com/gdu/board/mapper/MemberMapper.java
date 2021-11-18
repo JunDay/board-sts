@@ -10,15 +10,27 @@ import com.gdu.board.vo.Member;
 @Mapper
 public interface MemberMapper {
 	
-	int selectMemberTotalCount(String memberId);
-	
-	List<Member> selectMemberList(Map<String, Object> map);
-	/* 회원PW 확인*/
+// 회원 기능
+	/* Member PW 변경 */
+	int updateMemberPassword(Member member);
+	/* Memeber 삭제 */
+	int deleteMember(int memberNo);
+	/* Member 정보 변경 */
+	int updateMember(Member member);
+	/* Member 정보 조회 */
+	Member selectMemberOne(int memberNo);
+	/* Member PW 확인 */
 	int selectMemberPwCheck(Member member);
+
+// 관리자 기능
+	/* Member 총 수, 페이징 */
+	int selectMemberTotalCount(String memberId);
+	/* Member List 조회 */
+	List<Member> selectMemberList(Map<String, Object> map);
+	
+// 비회원 기능
 	/* Member 회원가입 */
 	int insertMember(Member member);
-	/* ID 중복 확인 */
-	int selectMemberIdCheck(String memberId);
 	/* Member 로그인 */
-	Member selectMemberOne(Member member);
+	Member selectMemberLogin(Member member);
 }

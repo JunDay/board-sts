@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.board.mapper.CommentMapper">
 
-	<!-- Comment 삭제 -->
+	<!-- Comment 삭제 | param : boardNo, commentNo -->
 	<delete id="deleteComment" >
 		DELETE 
 		FROM comment
 		WHERE board_no = #{board.boardNo} AND comment_no = #{commentNo}
 	</delete>
 	
-	<!-- Comment 삽입 -->
+	<!-- Comment 삽입 | param : boardNo, Comment -->
 	<insert id="insertComment" parameterType="com.gdu.board.vo.Comment">
 		INSERT INTO comment(
 			board_no, 

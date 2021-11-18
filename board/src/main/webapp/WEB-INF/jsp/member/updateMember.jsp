@@ -20,15 +20,6 @@
 				<td><input id="memberId" name="memberId" type="text" value="${member.memberId}"readonly></td>
 			</tr>
 			<tr>
-				<td>회원레벨</td>
-				<td>회원상태</td>
-			</tr>
-			<tr>
-				<td><input id="memberLevel" name="memberLevel" type="text" value="${member.memberLevel}">
-				</td>
-				<td><input id="memberState" name="memberState" type="text" value="${member.memberState}"></td>
-			</tr>
-			<tr>
 				<td colspan="2">회원이메일</td>
 			</tr>
 			<tr>
